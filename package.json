@@ -1,0 +1,33 @@
+{
+  "name": "tetris-game",
+  "version": "1.0.0",
+  "description": "A tetris game with javascript",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack serve",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brcthn/Tetris-game.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brcthn/Tetris-game/issues"
+  },
+  "homepage": "https://github.com/brcthn/Tetris-game#readme",
+  "dependencies": {
+    "alertify": "^0.3.0",
+    "babel-loader": "^8.2.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "css-loader": "^5.0.1",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.19.0",
+    "webpack-cli": "^4.4.0",
+    "webpack-dev-server": "^3.11.2"
+  }
+}
