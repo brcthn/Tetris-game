@@ -17,3 +17,14 @@
 .tetris-grid-item.filled{
 background: rebeccapurple;
 }
+#start-button{
+    width: 200px;
+    height: 60px;
+    margin: 10px auto;
+    text-align: center;
+    font-size: 24px;
+    line-height: 48px;
+    cursor: pointer;
+    background: black;
+    color: #fff;
+}

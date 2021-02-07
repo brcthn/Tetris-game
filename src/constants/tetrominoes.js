@@ -35,4 +35,4 @@ const iTetromino = [
     [GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH + 2, GRID_WIDTH + 3]
 ];
 
-export const tetrominoes =[lTetromino, zTetromino, tTetromino, oTetromino, iTetromino]
+export const tetrominoes =[lTetromino,zTetromino, tTetromino, oTetromino, iTetromino]
