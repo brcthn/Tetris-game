@@ -26,8 +26,32 @@ export const start=()=>{
         unDraw();
         setValue("position", position+GRID_WIDTH);
     }
-    draw(); 
+    draw();
+    checkShouldStop();
+    checkIsGameOver();
 }
+//control  for last tetromino
+export const checkShouldStop=()=>{
+    const {position,rotation,tetrominoe,elements}= getCurrentValues();
+    const isLast= tetrominoe[rotation].some((index)=>elements[position+index+GRID_WIDTH].classList.contains("taken"))
+    if(isLast){
+        tetrominoe[rotation].forEach((index)=> elements[position+index].classList.add("taken"))
+        setValue("tetrominoe",getRandomTetrominoe());
+        setValue("position",4);
+        draw();
+    }
+}
+export const checkIsGameOver=()=>{
+    const {position,rotation,tetrominoe,elements,timer}= getCurrentValues();
+    if(tetrominoe[rotation].some((index)=>{
+        return elements[position+index].classList.contains("taken");
+    })){
+        //Game over
+        clearInterval(timer);
+        alert("game over")
+    }
+}
+
 export const moveLeft=()=>{
     const {position,rotation,tetrominoe,elements}=getCurrentValues();
     unDraw(); 
