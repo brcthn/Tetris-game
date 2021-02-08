@@ -18,7 +18,6 @@
   },
   "homepage": "https://github.com/brcthn/Tetris-game#readme",
   "dependencies": {
-    "alertify": "^0.3.0",
     "babel-loader": "^8.2.2"
   },
   "devDependencies": {

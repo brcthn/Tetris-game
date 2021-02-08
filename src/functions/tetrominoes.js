@@ -74,12 +74,13 @@ export const checkShouldStop=()=>{
     }
 }
 export const checkIsGameOver=()=>{
-    const {position,rotation,tetrominoe,elements,timer}= getCurrentValues();
+    const {position,rotation,tetrominoe,elements,timer,score}= getCurrentValues();
     if(tetrominoe[rotation].some((index)=>{
         return elements[position+index].classList.contains("taken");
     })){
         //Game over
         clearInterval(timer);
+        checkHighestScore(score);
         document.getElementById("score").innerHTML="Game Over";
     }
 }
@@ -123,4 +124,17 @@ export const handleControls=(e)=>{
     if(e.keyCode==39){ moveRight();}
     if(e.keyCode==38){ rotate();}
     if(e.keyCode==40){ start();} 
+}
+export const checkHighestScore=(currentScore)=>{
+    const highestScore=window.localStorage.getItem("highestScore")
+    if(highestScore){
+        if(currentScore>highestScore){
+            window.localStorage.setItem("highestScore",currentScore)
+        }
+        const newHighScore=window.localStorage.getItem("highestScore")
+        document.querySelector("#highest-score").innerHTML=newHighScore;
+    }else{ 
+        window.localStorage.setItem("highestScore",currentScore)
+        document.querySelector("#highest-score").innerHTML=currentScore;
+    }
 }
