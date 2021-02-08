@@ -2,6 +2,7 @@ import {tetrominoes} from "../constants/tetrominoes";
 import {getCurrentValues} from"../currentValues";
 import { GRID_WIDTH } from "../constants/grid";
 import { setValue} from "../currentValues";
+import { GRID_SIZE } from "../constants/grid";
 
 export const getRandomTetrominoe=()=>{
 const randomNum=Math.floor(Math.random()* tetrominoes.length);
@@ -28,7 +29,38 @@ export const start=()=>{
     }
     draw();
     checkShouldStop();
+    checkScore();
     checkIsGameOver();
+ 
+}
+export const checkScore=()=>{
+    const {position,rotation,tetrominoe,elements,score}= getCurrentValues();
+    for( let currentIndex=0; currentIndex<GRID_SIZE-1; currentIndex += GRID_WIDTH){
+        const row=[currentIndex,currentIndex+1,currentIndex+2,currentIndex+3,currentIndex+4,currentIndex+5,currentIndex+6,currentIndex+7,currentIndex+8,currentIndex+9];
+        const isWall=row.some((index)=>elements[index].classList.contains("wall"))
+        if(row.every(index => elements[index].classList.contains("taken"))&&!isWall){
+            const currentScore = score+10;
+            setValue("score",currentScore);
+            document.getElementById("score").innerHTML=`Score: ${currentScore}`;
+            row.forEach((index)=>{
+                elements[index].classList.remove("taken");
+                elements[index].classList.remove("filled");
+                });
+        
+        // tamami boyali olan satir silindi.
+        //splice metodu mutate eder.
+        const removeElements=elements.splice(currentIndex, GRID_WIDTH);
+
+        console.log(removeElements)
+        //silinmis olani basa aldik.
+        const newEls=removeElements.concat(elements);
+        console.log(newEls)
+        setValue("elements",newEls);
+        newEls.forEach(cell=>document.querySelector("#tetris-grid").appendChild(cell));  
+        }
+    }
+
+
 }
 //control  for last tetromino
 export const checkShouldStop=()=>{
@@ -48,7 +80,7 @@ export const checkIsGameOver=()=>{
     })){
         //Game over
         clearInterval(timer);
-        alert("game over")
+        document.getElementById("score").innerHTML="Game Over";
     }
 }
 
@@ -77,7 +109,7 @@ export const rotate=()=>{
     setValue("rotation",rotation+1);
      if(rotation+1==tetrominoe.length){
       setValue("rotation",0);
-     }
+    }
     draw();
 }
 

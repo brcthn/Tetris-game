@@ -8,6 +8,7 @@ export const currentValues={
     tetrominoe:getRandomTetrominoe(),
     elements:null,
     timer:null,
+    score:0,
 }
 
 //guncel degeri okumak icin

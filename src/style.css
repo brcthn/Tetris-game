@@ -32,3 +32,9 @@ background: rebeccapurple;
 .taken{
    border: none;
 }
+#score{
+    width: 200px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 32px;
+}
