@@ -13,10 +13,10 @@
     width: 300px;
     height: 600px;
     margin: 100px auto;
-    background-color:#ABEBC6
+    background-color:#D4EFDF  
 }
 .tetris-grid-item.filled{
-background: rebeccapurple;
+background: #196F3D ;
 }
 #start-button{
     width: 200px;
@@ -26,7 +26,7 @@ background: rebeccapurple;
     font-size: 24px;
     line-height: 48px;
     cursor: pointer;
-    background: black;
+    background: #1E8449 ;
     color: #fff;
 }
 .taken{
@@ -48,7 +48,6 @@ background: rebeccapurple;
     left: 15px;
     width: 200px;
     padding:10px;
-    height: 200px;
-    background: gray;
+    height: 60px;
+    background: #1E8449 ;
 }
-

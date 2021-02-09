@@ -5,15 +5,17 @@ import { setValue} from "../currentValues";
 import { GRID_SIZE } from "../constants/grid";
 
 export const getRandomTetrominoe=()=>{
-const randomNum=Math.floor(Math.random()* tetrominoes.length);
-return tetrominoes[randomNum];
+    const randomNum=Math.floor(Math.random()* tetrominoes.length);
+    return tetrominoes[randomNum];
 }
+
 export const unDraw=()=>{
-const{position,rotation,tetrominoe,elements}=getCurrentValues();
-tetrominoe[rotation].forEach((index)=>{
-    elements[position+index].classList.remove("filled"); 
-   })
+    const{position,rotation,tetrominoe,elements}=getCurrentValues();
+    tetrominoe[rotation].forEach((index)=>{
+        elements[position+index].classList.remove("filled"); 
+    })
 }
+
 export const draw=()=>{
     const {position,rotation,tetrominoe,elements}= getCurrentValues();
     tetrominoe[rotation].forEach((index)=>{
@@ -59,8 +61,6 @@ export const checkScore=()=>{
         newEls.forEach(cell=>document.querySelector("#tetris-grid").appendChild(cell));  
         }
     }
-
-
 }
 //control  for last tetromino
 export const checkShouldStop=()=>{
@@ -89,7 +89,9 @@ export const moveLeft=()=>{
     const {position,rotation,tetrominoe,elements}=getCurrentValues();
     unDraw(); 
     const isLeftBorder=tetrominoe[rotation].some((index)=>(position+index)%GRID_WIDTH==0);
-        if(!isLeftBorder){
+    //sola ilerlerken kutucuklarin ic ice gecmesi onlendi.
+    const isLastLeftBox= tetrominoe[rotation].some((index)=>elements[position+index-1].classList.contains("taken"))
+        if(!isLeftBorder && !isLastLeftBox){
             setValue("position",position-1);
         }
     draw();
@@ -98,20 +100,31 @@ export const moveRight=()=>{
     const {position,rotation,tetrominoe,elements}= getCurrentValues();
     unDraw(); 
     const isRightBorder=tetrominoe[rotation].some((index)=>(position+index)%GRID_WIDTH==GRID_WIDTH-1);
-        if(!isRightBorder){
+    //saga ilerlerken kutucuklarin ic ice gecmesi onlendi.
+    const isLastRightBox= tetrominoe[rotation].some((index)=>elements[position+index+1].classList.contains("taken"))
+        if(!isRightBorder&& !isLastRightBox ){
             setValue("position",position+1);
         }
     draw();
 }
 
 export const rotate=()=>{
-    const {rotation,tetrominoe}= getCurrentValues();
+    const {rotation,tetrominoe,position}= getCurrentValues();
     unDraw();
-    setValue("rotation",rotation+1);
-     if(rotation+1==tetrominoe.length){
-      setValue("rotation",0);
-    }
-    draw();
+  
+    const rotateIsLeftBorder=tetrominoe[rotation].some((index)=>(position+index)%GRID_WIDTH==0);
+    const rotateIsRightBorder=tetrominoe[rotation].some((index)=>(position+index)%GRID_WIDTH==GRID_WIDTH-2);
+    
+    if(rotateIsRightBorder || rotateIsLeftBorder){
+       draw();
+    }else{
+        setValue("rotation",rotation+1);
+        if(rotation+1==tetrominoe.length){
+            setValue("rotation",0);
+            draw();
+        }
+        draw();
+    }     
 }
 
 export const bindEvents=()=>{

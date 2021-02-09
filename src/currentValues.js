@@ -18,6 +18,5 @@ export const getCurrentValues=()=>{
 
 // degerleri degistirmek icin 
 export const setValue=(key,value)=>{
-currentValues[key]=value;
-
+    currentValues[key]=value;
 }
